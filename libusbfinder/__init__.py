@@ -1,4 +1,4 @@
-import hashlib, os, platform, cStringIO, tarfile
+import hashlib, os, platform, cStringIO, tarfile, re
 
 class VersionConfig:
     def __init__(self, version, bottle, bottle_sha256, dylib_patches, dylib_sha256):
@@ -65,12 +65,24 @@ def apply_patches(binary, patches):
 
 def libusb1_path_internal():
     version = platform.mac_ver()[0]
-    # HACK to support macOS 10.15
-    if version == '10.15':
-        version = '10.14'
+
     if version == '':
         # We're not running on a Mac.
         return None
+
+    # HACK to support macOS 10.15 and newer
+    versions = ['10.15', '10.16', '11', '12']
+    check = None
+    hack = False
+    for x in versions:
+        try:
+            check = re.findall(x, version)[0]
+        except:
+            pass
+        if check == x:
+            hack = True
+    if hack == True:
+        version = '10.14'
 
     for config in configs:
         if version.startswith(config.version):

@@ -78,13 +78,14 @@ def main():
         pdev.write_memory(k, config.patches[k])
     print "Successfully applied patches"
     print "Resetting device state"
-    print "* This will effectiveley disable pwned DFU Mode"
-    print "* Only the signature patches will remain"
-    # Send abort
-    device.ctrl_transfer(HOST2DEVICE, DFU_ABORT, 0, 0, 0, 0)
-    # Perform USB reset
-    dfu.usb_reset(device)
-    dfu.release_device(device)
+    try:
+        # Send abort
+        device.ctrl_transfer(HOST2DEVICE, DFU_ABORT, 0, 0, 0, 0)
+        # Perform USB reset
+        dfu.usb_reset(device)
+        dfu.release_device(device)
+    except:
+        pass
     print "Device is now ready to accept unsigned images"
 
 if __name__ == "__main__":
