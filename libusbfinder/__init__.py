@@ -75,7 +75,7 @@ def libusb1_path_internal():
         return None
 
     # HACK to support macOS 10.15 and newer
-    versions = ['10.13', '10.14']
+    versions = ['10.8', '10.9', '10.10', '10.11', '10.12', '10.13', '10.14']
     hack = True
     for x in versions:
         if version.startswith(x):
