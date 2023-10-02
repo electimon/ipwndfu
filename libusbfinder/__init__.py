@@ -65,9 +65,13 @@ def apply_patches(binary, patches):
 
 def libusb1_path_internal():
     version = platform.mac_ver()[0]
+    processor = platform.processor()
 
     if version == '':
         # We're not running on a Mac.
+        return None
+    elif processor != 'x86_64':
+        # We're not running on an Intel Mac.
         return None
 
     # HACK to support macOS 10.15 and newer
