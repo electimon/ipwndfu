@@ -468,7 +468,7 @@ def exploit_config(serial_number):
     if 'SRTG:[%s]' % config.version in serial_number:
       return payload(config.cpid), config
   print 'ERROR: Not DFU mode! Already pwned iBSS mode?'
-  sys.exit(0)
+  sys.exit(2)
 
 def exploit():
   print '*** checkm8 exploit by axi0mX ***'

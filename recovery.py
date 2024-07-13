@@ -7,7 +7,7 @@ MAX_PACKET_SIZE = 0x4000
 
 def acquire_device(timeout=10):
     backend = usb.backend.libusb1.get_backend(find_library=lambda x:libusbfinder.libusb1_path())
-    print 'Acquiring device handle',
+    print 'Acquiring device handle.'
     start = time.time()
     # Keep retrying for up to timeout seconds if device is not found.
     while time.time() - start < timeout:
