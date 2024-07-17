@@ -518,6 +518,8 @@ def exploit():
   for i in range(0, len(payload), 0x800):
     libusb1_no_error_ctrl_transfer(device, 0x21, 1, 0, 0, payload[i:i+0x800], 50)
   dfu.usb_reset(device)
+  print 'hiiii can you unplug and replug, thanks'
+  time.sleep(2)
   dfu.release_device(device)
 
   device = dfu.acquire_device()
